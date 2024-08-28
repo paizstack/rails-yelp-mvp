@@ -1,0 +1,27 @@
+<h1 class="mb-4"><%= @restaurant.name %></h1>
+
+<p class="mb-4">
+  <strong>Address:</strong> <%= @restaurant.address %><br>
+  <strong>Phone Number:</strong> <%= @restaurant.phone_number %><br>
+  <strong>Category:</strong> <%= @restaurant.category %>
+</p>
+
+<h2 class="mb-3">Reviews</h2>
+<ul class="list-group mb-4">
+  <% @restaurant.reviews.each do |review| %>
+    <li class="list-group-item">
+      <strong>Rating:</strong> <%= review.rating %> - <%= review.content %>
+    </li>
+  <% end %>
+</ul>
+
+<h2 class="mb-3">Add a Review</h2>
+<%= simple_form_for [@restaurant, @review], html: { class: "form-horizontal" } do |f| %>
+  <div class="mb-3">
+    <%= f.input :rating, collection: [0, 1, 2, 3, 4, 5], as: :radio_buttons, label_html: { class: "form-label" }, input_html: { class: "form-check-input" } %>
+  </div>
+  <div class="mb-3">
+    <%= f.input :content, label_html: { class: "form-label" }, input_html: { class: "form-control" } %>
+  </div>
+  <%= f.button :submit, "Submit Review", class: "btn btn-primary" %>
+<% end %>
